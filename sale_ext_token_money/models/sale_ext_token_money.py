@@ -21,6 +21,7 @@ class SaleExt(models.Model):
 				wo_token_money.create({
 					'name' : rec.product_id.product_tmpl_id.id,
 					'so_ref' : self.id,
+					'qunatity' : rec.product_uom_qty
 				})
 		return res
 
@@ -33,8 +34,10 @@ class TokenMoneyProductExt(models.Model):
 class TokenMoney(models.Model):
     _name = 'token.money'
 
-    name = fields.Many2one('product.template',)
+    name = fields.Many2one('product.template','Product')
+    sale_person = fields.Many2one('res.users','Sale Person', compute='_compute_total_money', store=True)
     so_ref = fields.Many2one('sale.order','Sale Order')
+    date = fields.Datetime(compute='_compute_total_money')
     ttl_tok_money = fields.Float('Token Money', compute='_compute_total_money')
     price_subtotal = fields.Float('Price Subtotal', compute='_compute_total_money')
     qunatity = fields.Integer()
@@ -42,13 +45,24 @@ class TokenMoney(models.Model):
     @api.depends('name','so_ref')
     def _compute_total_money(self):
     	for rec in self:
-		    if rec.name:
-		        rec.ttl_tok_money = rec.name.token_money * rec.qunatity
-		    if rec.so_ref:
-		    	rec.price_subtotal = [rec.price_subtotal + x.price_subtotal for x in rec.so_ref.order_line if x.product_id.name == rec.name.name][0]
+    		rec.ttl_tok_money = rec.name.token_money * rec.qunatity if rec.name else 0
+    		rec.price_subtotal = [rec.price_subtotal + x.price_subtotal for x in rec.so_ref.order_line if x.product_id.name == rec.name.name][0] if rec.so_ref else 0
+    		rec.date = rec.so_ref.date_order
+    		rec.sale_person = rec.so_ref.user_id.id
 
 class WithoutTokenMoney(models.Model):
     _name = 'wo.token.money'
 
-    name = fields.Many2one('product.template')
+    name = fields.Many2one('product.template','Product')
+    sale_person = fields.Many2one('res.users','Sale Person', compute='_compute_subtotal', store=True)
     so_ref = fields.Many2one('sale.order','Sale Order')
+    date = fields.Datetime(compute='_compute_subtotal')
+    price_subtotal = fields.Float('Price Subtotal', compute='_compute_subtotal')
+    qunatity = fields.Integer()
+
+    @api.depends('so_ref')
+    def _compute_subtotal(self):
+    	for rec in self:
+	    	rec.price_subtotal = [rec.price_subtotal + x.price_subtotal for x in rec.so_ref.order_line if x.product_id.name == rec.name.name][0] if rec.so_ref else 0
+	    	rec.date = rec.so_ref.date_order
+	    	rec.sale_person = rec.so_ref.user_id.id

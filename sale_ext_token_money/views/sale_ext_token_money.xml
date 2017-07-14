@@ -21,12 +21,26 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
+          <field name="sale_person"/>
           <field name="so_ref"/>
+          <field name="date"/>
           <field name="price_subtotal" sum='1'/>
           <field name="ttl_tok_money" sum='1'/>
         </tree>
       </field>
     </record>
+
+    <record id="sale_ext_token_money.token_money_filter" model="ir.ui.view">
+      <field name="name">sale_ext_token_money token_money_filter</field>
+      <field name="model">token.money</field>
+      <field name="arch" type="xml">
+          <search string="Search Token Money">
+            <group expand="0" string="Group By">
+                <filter string="Salesperson" domain="[]" context="{'group_by':'sale_person'}"/>
+            </group>
+          </search>
+        </field>
+      </record>
 
     <record model="ir.ui.view" id="sale_ext_token_money.list_wo_token_money">
       <field name="name">sale_ext_token_money list_wo_token_money</field>
@@ -34,10 +48,25 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
+          <field name="sale_person"/>
           <field name="so_ref"/>
+          <field name="date"/>
+          <field name="price_subtotal" sum='1'/>
         </tree>
       </field>
     </record>
+
+    <record id="sale_ext_token_money.wo_token_money_filter" model="ir.ui.view">
+      <field name="name">sale_ext_token_money wo_token_money_filter</field>
+      <field name="model">wo.token.money</field>
+      <field name="arch" type="xml">
+          <search string="Search Without Token Money">
+            <group expand="0" string="Group By">
+                <filter string="Salesperson" domain="[]" context="{'group_by':'sale_person'}"/>
+            </group>
+          </search>
+        </field>
+      </record>
 
     <record model="ir.ui.view" id="sale_ext_token_money.form">
       <field name="name">sale_ext_token_money form</field>
