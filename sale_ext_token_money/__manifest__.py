@@ -11,8 +11,9 @@
     'website': "http://www.glareerp.com",
     'category': 'Sales',
     'version': '0.1',
-    'depends': ['sale'],
+    'depends': ['sale','hr_payroll'],
     'data': [
         'views/sale_ext_token_money.xml',
+        'data/saleman_salary_structure.xml',
     ],
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Salary Rules -->
+	<record id="salary_rule_token" model="hr.salary.rule">
+    <field name="name">Token Money</field>
+    <field name="sequence" eval="111"/>
+    <field name="code">TM</field>
+    <field name="category_id" ref="hr_payroll.ALW"/>
+    <field name="amount_select">code</field>
+    <field name="amount_python_compute">result = employee._all_token_money()</field>
+  </record>
+
+  <record id="salary_rule_commition" model="hr.salary.rule">
+    <field name="name">Commition Money</field>
+    <field name="sequence" eval="112"/>
+    <field name="code">CM</field>
+    <field name="category_id" ref="hr_payroll.ALW"/>
+    <field name="amount_select">code</field>
+    <field name="amount_python_compute">result = employee._all_sale_commission()</field>
+  </record>
+
+	<!-- Salary Structure -->
+   <record id="structure_001" model="hr.payroll.structure">
+      <field name="code">SM</field>
+      <field name="name">Salesman</field>
+      <field eval="[(6, 0, [ref('salary_rule_token'),ref('salary_rule_commition')])]" name="rule_ids"/>
+      <field name="company_id" ref="base.main_company"/>
+      <field name="parent_id" ref="hr_payroll.structure_base"/>
+  </record>
+</odoo>

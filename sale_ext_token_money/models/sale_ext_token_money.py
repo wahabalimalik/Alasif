@@ -38,7 +38,7 @@ class TokenMoney(models.Model):
     sale_person = fields.Many2one('res.users','Sale Person', compute='_compute_total_money', store=True)
     so_ref = fields.Many2one('sale.order','Sale Order')
     date = fields.Datetime(compute='_compute_total_money')
-    ttl_tok_money = fields.Float('Token Money', compute='_compute_total_money')
+    ttl_tok_money = fields.Float('Token Money', compute='_compute_total_money', store=True)
     price_subtotal = fields.Float('Price Subtotal', compute='_compute_total_money')
     qunatity = fields.Integer()
 
@@ -66,3 +66,16 @@ class WithoutTokenMoney(models.Model):
 	    	rec.price_subtotal = [rec.price_subtotal + x.price_subtotal for x in rec.so_ref.order_line if x.product_id.name == rec.name.name][0] if rec.so_ref else 0
 	    	rec.date = rec.so_ref.date_order
 	    	rec.sale_person = rec.so_ref.user_id.id
+
+class EmplyeeTokenAndWoTokenMoney(models.Model):
+	_inherit = 'hr.employee'
+
+	@api.multi
+	def _all_token_money(self):
+		record = self.env['token.money'].search([('sale_person','=',self.name)])
+		return sum(rec.ttl_tok_money for rec in record)
+
+	@api.multi
+	def _all_sale_commission(self):
+		record = self.env['wo.token.money'].search([('sale_person','=',self.name)])
+		return ((sum(rec.price_subtotal for rec in record)) / 100) * 1
