@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!--Employees-->
+
+		<record id="employee_danish" model="hr.employee">
+		  <field name="name">Danish Khan Burakzai</field>
+		  <field name="calendar_id" ref="resource.timesheet_group1"/>
+		  <field name="work_location">Building 1, Second Floor</field>
+		  <field name="work_phone">+923042191118</field>
+		  <field name="work_email">danish@glareerp.com</field>
+		  <field name="category_ids" eval="[(6, 0, [ref('hr.employee_category_2'), ref('hr.employee_category_4')])]"/>
+		  <field name="job_id" ref="sale_ext_token_money.job_title"/>
+		  <field name="department_id" ref="hr.dep_sales"/>
+		  <field name="image" type="base64" file="sale_ext_token_money/static/img/danish.jpg"/>
+		</record>
+
+		<record id="employee_mujtaba" model="hr.employee">
+		  <field name="name">Mujtaba Malik</field>
+		  <field name="calendar_id" ref="resource.timesheet_group1"/>
+		  <field name="work_location">Building 1, Second Floor</field>
+		  <field name="work_phone">+923318205531</field>
+		  <field name="work_email">mujtaba@glareerp.com</field>
+		  <field name="category_ids" eval="[(6, 0, [ref('hr.employee_category_2'), ref('hr.employee_category_4')])]"/>
+		  <field name="job_id" ref="sale_ext_token_money.job_title"/>
+		  <field name="department_id" ref="hr.dep_sales"/>
+		  <field name="image" type="base64" file="sale_ext_token_money/static/img/moji.jpg"/>
+		</record>
+
+		<record id="employee_sameer" model="hr.employee">
+		  <field name="name">Malik Sameer</field>
+		  <field name="calendar_id" ref="resource.timesheet_group1"/>
+		  <field name="work_location">Building 1, Second Floor</field>
+		  <field name="work_phone">+923206020365</field>
+		  <field name="work_email">sameer@glareerp.com</field>
+		  <field name="category_ids" eval="[(6, 0, [ref('hr.employee_category_2'), ref('hr.employee_category_4')])]"/>
+		  <field name="job_id" ref="sale_ext_token_money.job_title"/>
+		  <field name="department_id" ref="hr.dep_sales"/>
+		  <field name="image" type="base64" file="sale_ext_token_money/static/img/sameer.jpg"/>
+		</record>
+
+	<!-- Products -->
+
+		<record id="product_product_8" model="product.product">
+	        <field name="name">Apple Iphone</field>
+	        <field name="categ_id" ref="product.product_category_5"/>
+	        <field name="standard_price">70.0</field>
+	        <field name="list_price">79.0</field>
+	        <field name="type">consu</field>
+	        <field name="token_check">1</field>
+	        <field name="token_money">20</field>
+	        <field name="uom_id" ref="product.product_uom_unit"/>
+	        <field name="uom_po_id" ref="product.product_uom_unit"/>
+	        <field name="default_code">E-COM088</field>
+	    </record>
+
+	    <record id="product_product_9" model="product.product">
+	        <field name="name">Black berry</field>
+	        <field name="categ_id" ref="product.product_category_5"/>
+	        <field name="standard_price">30.0</field>
+	        <field name="list_price">49.0</field>
+	        <field name="type">consu</field>
+	        <field name="token_check">1</field>
+	        <field name="token_money">40</field>
+	        <field name="uom_id" ref="product.product_uom_unit"/>
+	        <field name="uom_po_id" ref="product.product_uom_unit"/>
+	        <field name="default_code">E-COM099</field>
+	    </record>
+
+	    <record id="product_product_77" model="product.product">
+	        <field name="name">Apple Watch</field>
+	        <field name="categ_id" ref="product.product_category_5"/>
+	        <field name="standard_price">10.0</field>
+	        <field name="list_price">50.0</field>
+	        <field name="type">consu</field>
+	        <field name="token_check">1</field>
+	        <field name="token_money">60</field>
+	        <field name="uom_id" ref="product.product_uom_unit"/>
+	        <field name="uom_po_id" ref="product.product_uom_unit"/>
+	        <field name="default_code">E-COM077</field>
+	    </record>
+
+	<!-- Employee Contract -->
+
+        <record id="hr_contract_saleman1" model="hr.contract">
+            <field name="name">Salesman</field>
+            <field name="type_id" ref="hr_contract.hr_contract_type_emp"/>
+            <field name="date_start" eval="time.strftime('%Y-%m')+'-1'"/>
+            <field name="date_end" eval="time.strftime('%Y')+'-12-31'"/>
+            <field name="struct_id" ref="structure_001"/>
+            <field name="employee_id" ref="employee_danish"/>
+            <field name="notes">Default contract for Salesman</field>
+            <field eval="4000.0" name="wage"/>
+            <field name="working_hours" ref="resource.timesheet_group1"/>
+        </record>
+        <record id="hr_contract_saleman2" model="hr.contract">
+            <field name="name">Salesman</field>
+            <field name="type_id" ref="hr_contract.hr_contract_type_emp"/>
+            <field name="date_start" eval="time.strftime('%Y-%m')+'-1'"/>
+            <field name="date_end" eval="time.strftime('%Y')+'-12-31'"/>
+            <field name="struct_id" ref="structure_001"/>
+            <field name="employee_id" ref="employee_mujtaba"/>
+            <field name="notes">Default contract for Salesman</field>
+            <field eval="4000.0" name="wage"/>
+            <field name="working_hours" ref="resource.timesheet_group1"/>
+        </record>
+        <record id="hr_contract_saleman3" model="hr.contract">
+            <field name="name">Salesman</field>
+            <field name="type_id" ref="hr_contract.hr_contract_type_emp"/>
+            <field name="date_start" eval="time.strftime('%Y-%m')+'-1'"/>
+            <field name="date_end" eval="time.strftime('%Y')+'-12-31'"/>
+            <field name="struct_id" ref="structure_001"/>
+            <field name="employee_id" ref="employee_sameer"/>
+            <field name="notes">Default contract for Salesman</field>
+            <field eval="4000.0" name="wage"/>
+            <field name="working_hours" ref="resource.timesheet_group1"/>
+        </record>
+
+</odoo>

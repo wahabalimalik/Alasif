@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Creat job title of Salesman -->
+
+	<record id="sale_ext_token_money.job_title" model="hr.job">
+    <field name="name">Salesman</field>
+    <field name="department_id" ref="hr.dep_sales" />
+    <field name="no_of_recruitment">5</field>
+  </record>
+</odoo>

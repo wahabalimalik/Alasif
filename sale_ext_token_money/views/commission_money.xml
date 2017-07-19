@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- View -->
+      <!-- Tree -->
+        <!-- Commission Money -->
+          <record model="ir.ui.view" id="sale_ext_token_money.list_comission_money">
+            <field name="name">sale_ext_token_money list_comission_money</field>
+            <field name="model">comission.money</field>
+            <field name="arch" type="xml">
+              <tree create="0">
+                <field name="name"/>
+                <field name="deduction" invisible='1'/>
+                <field name="sale_person"/>
+                <field name="inv_ref"/>
+                <field name="date"/>
+                <field name="price_subtotal" sum='1'/>
+              </tree>
+            </field>
+          </record>
+
+        <!-- Refund Commission Money -->
+          <record model="ir.ui.view" id="sale_ext_token_money.list_refund_comission_money">
+            <field name="name">sale_ext_token_money list_refund_comission_money</field>
+            <field name="model">comission.money</field>
+            <field name="arch" type="xml">
+              <tree create="0">
+                <field name="name"/>
+                <field name="deduction" invisible='1'/>
+                <field name="sale_person"/>
+                <field name="inv_ref"/>
+                <field name="date"/>
+                <field name="price_subtotal" sum='1'/>
+              </tree>
+            </field>
+          </record>
+
+      <!-- Search -->
+         <record id="sale_ext_token_money.wo_token_money_filter" model="ir.ui.view">
+          <field name="name">sale_ext_token_money commission_money_filter</field>
+          <field name="model">comission.money</field>
+          <field name="arch" type="xml">
+              <search string="Search Commission Money">
+                <group expand="0" string="Group By">
+                    <filter string="Salesperson" name="filter_to_saleman" domain="[]" context="{'group_by':'sale_person'}"/>
+                </group>
+              </search>
+            </field>
+          </record>
+
+    <!-- action -->
+      <!-- Commission Money -->
+        <record model="ir.actions.act_window" id="sale_ext_token_money.action_commission_money">
+          <field name="name">Commission Money</field>
+          <field name="context">{"search_default_filter_to_saleman":1}</field>
+          <field name="domain">[('deduction', '!=', True)]</field>
+          <field name="res_model">comission.money</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+      <!-- Refund Commission Money -->
+        <record model="ir.actions.act_window" id="sale_ext_token_money.action_refund_commission_money">
+          <field name="name">Refund Commission Money</field>
+          <field name="context">{"search_default_filter_to_saleman":1}</field>
+          <field name="domain">[('deduction', '=', True)]</field>
+          <field name="res_model">comission.money</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+    <!-- menuitems -->
+      <!-- Commission Money -->
+        <menuitem
+          id= "menu_commission_money"
+          parent= "sales_team.menu_sales"
+          sequence= "18"
+          name= "Commission Money"
+          action= "sale_ext_token_money.action_commission_money"
+        />
+
+      <!-- Refund Commission Money -->
+        <menuitem
+          id= "menu_refund_commission_money"
+          parent= "sales_team.menu_sales"
+          sequence= "20"
+          name= "Refund Commission Money"
+          action= "sale_ext_token_money.action_refund_commission_money"
+        />
+
+  </data>
+</odoo>
