@@ -33,7 +33,7 @@ class EmplyeeExt(models.Model):
 			('date','>=',date_from),
 			('date','<=',date_to)
 			])
-		return sum(rec.ttl_tok_money for rec in record)
+		return -(sum(rec.ttl_tok_money for rec in record))
 
 	@api.multi
 	def _all_sale_commission_ded(self,date_from,date_to):
@@ -43,4 +43,4 @@ class EmplyeeExt(models.Model):
 			('date','>=',date_from),
 			('date','<=',date_to)
 			])
-		return ((sum(rec.price_subtotal for rec in record)) / 100) * 1
+		return ((sum(rec.price_subtotal for rec in record)) / 100) * -1

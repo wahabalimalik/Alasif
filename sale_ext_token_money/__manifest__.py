@@ -12,17 +12,18 @@
     'category': 'Sales',
     'version': '0.1',
     'depends': ['sale','hr_payroll'],
+    'demo': [
+        'data/hr_salesman_demo.xml'
+    ],
     'data': [
         'data/saleman_salary_structure_data.xml',
         'data/saleman_job_title_data.xml',
+        'data/sale_config_setting.xml',
+        'views/sale_order_ext.xml',
         'views/account_invoice_ext.xml',
         'views/commission_money.xml',
         'views/product_ext.xml',
-        'views/sale_order_ext.xml',
         'views/token_money.xml'
-    ],
-    'demo': [
-        'data/hr_salesman_demo.xml'
     ],
 
     'auto_install': True,

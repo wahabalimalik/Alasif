@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Creat job title of Salesman -->
+
+		<data noupdate="1">
+		    <function model="sale.config.settings" name="_write_disc"/>
+		</data>
+</odoo>

@@ -5,7 +5,7 @@ from odoo import models, fields, api
 class AccountInvoiceExt(models.Model):
 
 	_inherit = 'account.invoice'
-	sale_person = fields.Many2one('hr.employee','Salesperson', required=True, domain=lambda self:[('job_id','=',self.env.ref('sale_ext_token_money.job_title').id)])
+	sale_person = fields.Many2one('hr.employee','Salesperson', domain=lambda self:[('job_id','=',self.env.ref('sale_ext_token_money.job_title').id)])
 
 	@api.multi
 	def action_invoice_open(self):

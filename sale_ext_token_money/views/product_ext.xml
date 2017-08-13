@@ -14,11 +14,24 @@
                 <field name="token_check"/>
                 <label for="token_check"/>
             </div>
+
+            <div>
+                <field name="discount"/>
+                <label for="discount"/>
+            </div>
           </xpath>
           <xpath expr="//div[@name='options']" position="after">
             <group name="additioal_fields">
                 <field name="token_money" attrs="{'invisible': [('token_check', '==', False)]}"/>
             </group>
+
+            <group name="additioal_fields">
+                <field name="discount_limit_percentage" attrs="{'invisible': [('discount', '==', False)]}"/>
+            </group>
+          </xpath>
+
+          <xpath expr="//field[@name='barcode']" position="after">
+                <field name="origin_code"/>
           </xpath>
         </field>
       </record>
@@ -33,11 +46,19 @@
               <field name="token_check"/>
               <label for="token_check"/>
           </div>
+
+          <div>
+              <field name="discount"/>
+              <label for="discount"/>
+          </div>
         </xpath>
         <xpath expr="//div[@name='options']" position="after">
           <group name="additioal_fields">
               <field name="token_money" attrs="{'invisible': [('token_check', '==', False)]}"/>
           </group>
+          <group name="additioal_fields">
+                <field name="discount_limit_percentage" attrs="{'invisible': [('discount', '==', False)]}"/>
+            </group>
         </xpath>
       </field>
     </record>
