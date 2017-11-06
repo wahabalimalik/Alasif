@@ -23,8 +23,7 @@
         'views/account_invoice_ext.xml',
         'views/commission_money.xml',
         'views/product_ext.xml',
-        'views/token_money.xml'
+        'views/token_money.xml',
+        'views/payslip_ext.xml'
     ],
-
-    'auto_install': True,
 }
