@@ -11,6 +11,11 @@ class SaleOrderExt(models.Model):
 	_inherit = 'sale.order'
 	sale_person = fields.Many2one('hr.employee','Salesperson', domain=lambda self:[('job_id','=',self.env.ref('sale_ext_token_money.job_title').id)])
 
+	@api.onchange('partner_id')
+	def _onchange_partner_id(self):
+		return {'domain':{'partner_id':[('company_id','=',self.env.user.company_id.id)]}}
+
+
 	@api.constrains('sale_person')
 	def sale_person_check(self):
 		if not self.sale_person:
@@ -27,6 +32,10 @@ class SaleOrderLineExt(models.Model):
 
 	_inherit = 'sale.order.line'
 	hard_discount = fields.Float()
+
+	@api.onchange('product_id')
+	def _onchange_product_id(self):
+		return {'domain':{'product_id':[('company_id','=',self.env.user.company_id.id)]}}
 
 	@api.constrains('discount','hard_discount')
 	def discount_cal(self):
