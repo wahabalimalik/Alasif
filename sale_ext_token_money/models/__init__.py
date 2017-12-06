@@ -6,4 +6,3 @@ from . import account_invoice_ext
 from . import commission_money
 from . import employee_ext
 from . import token_money
-from . import payslip_ext

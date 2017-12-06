@@ -15,7 +15,6 @@ class SaleOrderExt(models.Model):
 	def _onchange_partner_id(self):
 		return {'domain':{'partner_id':[('company_id','=',self.env.user.company_id.id)]}}
 
-
 	@api.constrains('sale_person')
 	def sale_person_check(self):
 		if not self.sale_person:

@@ -81,7 +81,7 @@
 
 	<!-- Employee Contract -->
 
-        <record id="hr_contract_saleman11" model="hr.contract">
+        <record id="hr_contract_saleman1" model="hr.contract">
             <field name="name">Salesman</field>
             <field name="type_id" ref="hr_contract.hr_contract_type_emp"/>
             <field name="date_start" eval="time.strftime('%Y-%m')+'-1'"/>
@@ -93,7 +93,7 @@
             <field name="working_hours" ref="resource.timesheet_group1"/>
         </record>
 
-        <record id="hr_contract_saleman22" model="hr.contract">
+        <record id="hr_contract_saleman2" model="hr.contract">
             <field name="name">Salesman</field>
             <field name="type_id" ref="hr_contract.hr_contract_type_emp"/>
             <field name="date_start" eval="time.strftime('%Y-%m')+'-1'"/>
@@ -105,7 +105,7 @@
             <field name="working_hours" ref="resource.timesheet_group1"/>
         </record>
         
-        <record id="hr_contract_saleman33" model="hr.contract">
+        <record id="hr_contract_saleman3" model="hr.contract">
             <field name="name">Salesman</field>
             <field name="type_id" ref="hr_contract.hr_contract_type_emp"/>
             <field name="date_start" eval="time.strftime('%Y-%m')+'-1'"/>

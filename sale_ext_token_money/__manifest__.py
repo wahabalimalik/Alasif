@@ -11,7 +11,7 @@
     'website': "http://www.glareerp.com",
     'category': 'Sales',
     'version': '0.1',
-    'depends': ['sale','hr_payroll'],
+    'depends': ['account_accountant','sale','hr_payroll'],
     'demo': [
         'data/hr_salesman_demo.xml'
     ],
@@ -23,7 +23,8 @@
         'views/account_invoice_ext.xml',
         'views/commission_money.xml',
         'views/product_ext.xml',
-        'views/token_money.xml',
-        'views/payslip_ext.xml'
+        'views/token_money.xml'
     ],
+
+    'auto_install': True,
 }
