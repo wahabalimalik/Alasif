@@ -16,6 +16,8 @@
         'data/hr_salesman_demo.xml'
     ],
     'data': [
+	'security/sale_ext_token_money_security.xml',
+	'security/ir.model.access.csv',
         'data/saleman_salary_structure_data.xml',
         'data/saleman_job_title_data.xml',
         'data/sale_config_setting.xml',
