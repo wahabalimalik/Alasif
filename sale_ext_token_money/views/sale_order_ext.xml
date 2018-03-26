@@ -2,7 +2,7 @@
 <odoo>
   <data>
 
-  	<record model="ir.ui.view" id="sale_ext_token_money.sale_order_form_ext">
+    <record model="ir.ui.view" id="sale_ext_token_money.sale_order_form_ext">
       <field name="name">sale_ext_token_money sale_order_form_ext</field>
       <field name="model">sale.order</field>
       <field name="inherit_id" ref="sale.view_order_form"/>

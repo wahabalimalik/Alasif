@@ -20,7 +20,6 @@ class SaleOrderExt(models.Model):
 		if not self.sale_person:
 			raise ValidationError(_('You must have to select Salesman'))
 
-
 	@api.multi
 	def _prepare_invoice(self):
 		res = super(SaleOrderExt, self)._prepare_invoice()
@@ -32,9 +31,23 @@ class SaleOrderLineExt(models.Model):
 	_inherit = 'sale.order.line'
 	hard_discount = fields.Float()
 
-	@api.onchange('product_id')
-	def _onchange_product_id(self):
-		return {'domain':{'product_id':[('company_id','=',self.env.user.company_id.id)]}}
+	@api.model
+	def write(self, vals):
+		rec = self.env['product.product'].search([('id', '=', self.product_id.id)])
+		vals['discount'] = (vals['hard_discount'] *100) / rec.lst_price
+		vals['hard_discount'] = 0.0
+		return super(SaleOrderLineExt, self).write(vals)
+
+	@api.model
+	def create(self, vals):
+		rec = self.env['product.product'].search([('id', '=', vals['product_id'])])
+		vals['discount'] = (vals['hard_discount'] *100) / rec.lst_price
+		vals['hard_discount'] = 0.0
+		return super(SaleOrderLineExt, self).create(vals)
+
+	# @api.onchange('product_id')
+	# def _onchange_product_id(self):
+	# 	return {'domain':{'product_id':[('company_id','=',self.env.user.company_id.id)]}}
 
 	@api.constrains('discount','hard_discount')
 	def discount_cal(self):
@@ -44,10 +57,10 @@ class SaleOrderLineExt(models.Model):
 		if self.discount or self.hard_discount:
 			if self.discount:
 				if not self.product_id.discount:
-					raise ValidationError(_('You are not allowed to give discount on Product : %s' %(self.product_id.name)))
+					raise ValidationError(_('Youu are not allowed to give discount on Product : %s' %(self.product_id.name)))
 				else:
 					if self.discount > self.product_id.discount_limit_percentage:
-						raise ValidationError(_('You are not allowed to give discount more then %s percent on Product : %s' %(self.product_id.discount_limit_percentage,self.product_id.name)))
+						raise ValidationError(_('Youe are not allowed to give discount more then %s percent on Product : %s' %(self.product_id.discount_limit_percentage,self.product_id.name)))
 
 			else:
 				if not self.product_id.discount:
@@ -56,6 +69,7 @@ class SaleOrderLineExt(models.Model):
 					pth = (self.product_id.discount_limit_percentage * self.product_id.lst_price) / 100 
 					if self.hard_discount > (pth * self.product_uom_qty):
 						raise ValidationError(_('You are not allowed to give discount more then %s rupees on Product : %s' %(pth * self.product_uom_qty,self.product_id.name)))
+
 
 class ResBaseConfigSettings(models.TransientModel):
 	_name = "sale.config.settings"
